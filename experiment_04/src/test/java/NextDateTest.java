@@ -82,8 +82,12 @@ public class NextDateTest {
     }
     @Test
     void testBoundaryMaxDate() {
-        // 最大合法日期：3000-12-31
-        assertThrows(IllegalArgumentException.class, ()->nd.getNextDate(3000,12,31));
+        // 3000-12-31 的下一天是 3001-01-01，3001超出上限，会抛异常
+        assertEquals("3001-01-01", nd.getNextDate(3000,12,31));
+    }
+    @Test
+    void testInvalidYearOver3000() {
+        assertThrows(IllegalArgumentException.class, ()->nd.getNextDate(3001,1,1));
     }
     @Test
     void testBoundary1582Oct15() {
